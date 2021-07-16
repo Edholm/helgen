@@ -1,7 +1,10 @@
+APP_NAME      := helgen
 BINARY_NAME   := app
 BUILD_DIR     := ./build
-RESOURCES_DIR := ./resources
+SCRIPTS_DIR   := ./scripts
+TEMPLATE_DIR  := ./web/template
 TEMPLATE_NAME := template.jpg
+STATIC_DIR    := ./web/static
 
 .PHONY: all
 all: \
@@ -11,8 +14,10 @@ all: \
 	go-build
 
 go-build: gen-images
-	$(info [$@] building the app...)
-	@go build -o ${BUILD_DIR}/${BINARY_NAME} ./...
+	$(info [$@] building "${APP_NAME}"...)
+	@rm -rf ${BUILD_DIR}/${APP_NAME}/
+	@mkdir -p ${BUILD_DIR}/${APP_NAME}/
+	@go build -o ${BUILD_DIR}/${APP_NAME}/${BINARY_NAME} ./cmd/${APP_NAME}/main.go
 
 go-mod-tidy:
 	$(info [$@] tidying up module...)
@@ -24,8 +29,8 @@ go-test:
 
 gen-images:
 	$(info [$@] generating images...)
-	@cd ${RESOURCES_DIR} && ./generate-images.sh ${TEMPLATE_NAME}
+	@${SCRIPTS_DIR}/generate-images.sh ${TEMPLATE_DIR}/${TEMPLATE_NAME} ${STATIC_DIR}
 
 run-stack: go-build
-	$(info [$@] running the app...)
-	@${BUILD_DIR}/${BINARY_NAME}
+	$(info [$@] running "${APP_NAME}"...)
+	@cd ${BUILD_DIR}/${APP_NAME} && ./${BINARY_NAME}

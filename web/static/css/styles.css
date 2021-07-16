@@ -1,0 +1,28 @@
+
+.bg {
+    background-color: #f3f2ee;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
+    background-attachment: fixed;
+}
+
+.day1 {
+    background-image: url("/static/måndag.png");
+}
+
+.day2 {
+    background-image: url("/static/tisdag.png");
+}
+
+.day3 {
+    background-image: url("/static/onsdag.png");
+}
+
+.day4 {
+    background-image: url("/static/torsdag.png");
+}
+
+.day5 {
+    background-image: url("/static/fredag.png");
+}
